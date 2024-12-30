@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap');
+        body {
+            background-color: #000;
+            background-image: url('https://i.ibb.co/HYCYZ2L/user-Name-20241230-161716-0000.png');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: 'Signika Negative', sans-serif;
+        }
+        .profile-photo {
+            position: absolute;
+            top: 42%; /* Adjust this to center the profile photo in the white circle */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; /* Ensure it fits the circle */
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white; /* Matches the circle's border */
+        }
+    </style>
+</head>
+<body>
+    <!-- User Profile Photo -->
+    <img id="user-profile-photo" class="profile-photo" alt="Profile Photo"/>
+
+    <!-- Content -->
+    <div class="text-center text-white mt-10">
+        <h1 class="text-4xl font-bold mb-2"><span class="text-green-500">x</span><span class="text-white">Genis</span></h1>
+        <p class="text-green-500 mb-1">
+            EARLY ACCESS
+        </p>
+        <p class="text-gray-400 mb-1">
+            Connect your Telegram to start mining instantly.
+        </p>
+        <button class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-md flex items-center justify-center mx-auto mt-4">
+            <i class="fab fa-telegram-plane mr-2"></i>
+            Connect Telegram
+        </button>
+    </div>
+
+    <script>
+        // Initialize Telegram Web App
+        Telegram.WebApp.ready();
+
+        const userPhoto = document.getElementById("user-profile-photo");
+        const initDataUnsafe = Telegram.WebApp.initDataUnsafe;
+
+        // Check if user data is available and load profile picture
+        if (initDataUnsafe && initDataUnsafe.user) {
+            const profilePic = initDataUnsafe.user.photo_url;
+            if (profilePic) {
+                userPhoto.src = profilePic; // Set user profile picture
+            } else {
+                userPhoto.src = "https://i.ibb.co/6bN03pp/IMG-20241211-211549-488.jpg"; // Fallback image
+            }
+        } else {
+            userPhoto.src = "https://i.ibb.co/6bN03pp/IMG-20241211-211549-488.jpg"; // Fallback image
+        }
+
+        // Prevent unnecessary context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+    </script>
+</body>
+</html>
