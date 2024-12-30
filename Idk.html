@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://registry.npmmirror.com/vue/3.3.11/files/dist/vue.global.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap');
+        body {
+            background-color: #000;
+            background-image: url('https://i.ibb.co/HYCYZ2L/user-Name-20241230-161716-0000.png');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: 'Signika Negative', sans-serif;
+        }
+        .profile-photo {
+            position: absolute;
+            top: 40%; /* Adjust this to center the profile photo in the white circle */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; /* Ensure it fits the circle */
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white; /* Matches the circle's border */
+        }
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+        }
+        footer a.active {
+            color: #22c55e;
+        }
+        footer i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <img id="user-profile-photo" class="profile-photo" alt="Profile Photo"/>
+        <div class="text-center text-white">
+            <h1 class="text-4xl font-bold mb-2"><span class="text-green-500">x</span><span class="text-white">Genis</span></h1>
+            <p class="text-green-500 mb-1">
+                EARLY ACCESS
+            </p>
+            <p class="text-gray-400 mb-1">
+                Connect your telegram to start mining instantly.
+            </p>
+            <button class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-md flex items-center justify-center mx-auto mt-4">
+                <i class="fab fa-telegram-plane mr-2"></i>
+                Connect Telegram
+            </button>
+        </div>
+    </div>
+    <footer id="footer">
+        <a href="./Is3" class="active" onclick="setActive(this)">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="./GenisShop" onclick="setActive(this)">
+            <i class="fas fa-gamepad"></i>
+            <span>Games</span>
+        </a>
+        <a href="#" onclick="setActive(this)">
+            <i class="fas fa-tasks"></i>
+            <span>Tasks</span>
+        </a>
+        <a href="#" onclick="setActive(this)">
+            <i class="fas fa-user-friends"></i>
+            <span>Friends</span>
+        </a>
+    </footer>
+    <script>
+        const { createApp } = Vue;
+        createApp({}).mount('#app');
 
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+        });
+
+        function setActive(element) {
+            const footer = document.getElementById('footer');
+            const links = footer.querySelectorAll('a');
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        // Telegram WebApp Integration
+        Telegram.WebApp.ready();
+        const initDataUnsafe = Telegram.WebApp.initDataUnsafe;
+
+        const userPhoto = document.getElementById("user-profile-photo");
+
+        if (initDataUnsafe && initDataUnsafe.user) {
+            const profilePic = initDataUnsafe.user.photo_url;
+            if (profilePic) {
+                userPhoto.src = profilePic;
+            } else {
+                userPhoto.src = "https://i.ibb.co/6bN03pp/IMG-20241211-211549-488.jpg"; // Fallback image
+            }
+        } else {
+            userPhoto.src = "https://i.ibb.co/6bN03pp/IMG-20241211-211549-488.jpg"; // Fallback image
+        }
+    </script>
+</body>
+</html>
