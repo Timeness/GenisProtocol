@@ -18,7 +18,7 @@
         }
         .profile-photo {
             position: absolute;
-            top: 8%;
+            top: 6.5%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 80px;
@@ -26,6 +26,16 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid white;
+            box-shadow: 0 0 15px 3px rgba(0, 255, 0, 0.8), 0 0 30px 10px rgba(0, 255, 0, 0.5);
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 15px 3px rgba(0, 255, 0, 0.8), 0 0 30px 10px rgba(0, 255, 0, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px 5px rgba(0, 255, 0, 1), 0 0 40px 15px rgba(0, 255, 0, 0.7);
+            }
         }
         .content {
             display: flex;
@@ -46,12 +56,8 @@
 
     <div class="content">
         <h1 class="text-4xl font-bold mb-2"><span class="text-green-500">x</span><span class="text-white">Genis</span></h1>
-        <p class="text-green-500 mb-1">
-            EARLY ACCESS
-        </p>
-        <p class="text-gray-400 mb-1">
-            Connect your Telegram to start mining instantly.
-        </p>
+        <p class="text-green-500 mb-1">EARLY ACCESS</p>
+        <p class="text-gray-400 mb-1">Connect your Telegram to start mining instantly.</p>
         <button class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-md flex items-center justify-center mx-auto mt-4">
             <i class="fab fa-telegram-plane mr-2"></i>
             Connect Telegram
